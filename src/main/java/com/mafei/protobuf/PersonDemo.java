@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author mafei
@@ -33,6 +35,13 @@ public class PersonDemo {
 
 class ArrayTest {
     public static void main(String[] args) {
+        List<Car> cars = new ArrayList<>();
+        cars.add(
+                Car.newBuilder()
+                        .setCarName("car-3")
+                        .setCarNumber("003")
+                        .build()
+        );
         Person mafei = Person.newBuilder()
                 .setAge(25)
                 .setName("mafei")
@@ -47,7 +56,7 @@ class ArrayTest {
                                 .setCarName("car-2")
                                 .setCarNumber("002")
                                 .build()
-                )
+                ).addAllCar(cars)
                 .build();
         System.out.println("mafei = " + mafei);
     }
