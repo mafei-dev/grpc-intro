@@ -1,5 +1,6 @@
 package com.mafei.protobuf;
 
+import com.mafei.model.Car;
 import com.mafei.model.Person;
 
 import java.io.IOException;
@@ -27,5 +28,27 @@ public class PersonDemo {
 
         System.out.println("equality = " + (mafei == mafeiFormFile));
         System.out.println("equality by data = " + (mafei.equals(mafeiFormFile)));
+    }
+}
+
+class ArrayTest {
+    public static void main(String[] args) {
+        Person mafei = Person.newBuilder()
+                .setAge(25)
+                .setName("mafei")
+                .addCar(
+                        Car.newBuilder()
+                                .setCarName("car-1")
+                                .setCarNumber("001")
+                                .build()
+                )
+                .addCar(
+                        Car.newBuilder()
+                                .setCarName("car-2")
+                                .setCarNumber("002")
+                                .build()
+                )
+                .build();
+        System.out.println("mafei = " + mafei);
     }
 }
