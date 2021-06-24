@@ -13,9 +13,8 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
 
     @Override
     public void getBalance(BalanceCheckRequest request, StreamObserver<BalanceResponse> responseObserver) {
-        int amount = request.getAccountNumber() * 2;
         BalanceResponse response = BalanceResponse.newBuilder()
-                .setAmount(amount)
+                .setAmount(AccountDB.getBalance(request.getAccountNumber()))
                 .setCurrency("LKR")
                 .build();
         responseObserver.onNext(response);

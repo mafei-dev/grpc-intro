@@ -31,7 +31,7 @@ public class BankServiceTest {
     @Test
     public void balanceTest() {
         BalanceCheckRequest balanceCheckRequest = BalanceCheckRequest.newBuilder()
-                .setAccountNumber(555)
+                .setAccountNumber(2)
                 .build();
 
         BalanceResponse balance = this.bankServiceBlockingStub.getBalance(balanceCheckRequest);

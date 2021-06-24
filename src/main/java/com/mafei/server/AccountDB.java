@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public class AccountDB {
 
 
-    private static final Map<Integer, Integer> database =
+    private static final Map<Integer, Integer> DATABASE =
             IntStream
                     .rangeClosed(1, 10)
                     .boxed()
@@ -24,18 +24,18 @@ public class AccountDB {
 
 
     public static Integer addAmount(int accountNumber, int amount) {
-        return database.computeIfPresent(accountNumber, (_accountNum, _amount) -> {
+        return DATABASE.computeIfPresent(accountNumber, (_accountNum, _amount) -> {
             return _amount + amount;
         });
     }
 
     public static Integer deductAmount(int accountNumber, int amount) {
-        return database.computeIfPresent(accountNumber, (_accountNum, _amount) -> {
+        return DATABASE.computeIfPresent(accountNumber, (_accountNum, _amount) -> {
             return _amount - amount;
         });
     }
 
     public static Integer getBalance(int accountNumber) {
-        return database.get(accountNumber);
+        return DATABASE.get(accountNumber);
     }
 }
