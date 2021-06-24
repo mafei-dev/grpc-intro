@@ -8,7 +8,7 @@ import com.mafei.model.Person;
  */
 public class PersonDemo {
     public static void main(String[] args) {
-        Person.Builder mafei = Person.newBuilder().setName("mafei").setAge(25);
+        Person mafei = Person.newBuilder().setName("mafei").setAge(25).build();
         System.out.println("mafei = " + mafei);
     }
 }
