@@ -10,6 +10,7 @@ message BalanceCheckRequest {
 message BalanceResponse {
     int32 amount = 1;
     string currency = 2;
+    string port = 3;
 }
 /*
 this is the service that we need to get

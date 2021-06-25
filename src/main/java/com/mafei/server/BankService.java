@@ -15,7 +15,7 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
     public void getBalance(BalanceCheckRequest request, StreamObserver<BalanceResponse> responseObserver) {
         BalanceResponse response = BalanceResponse.newBuilder()
                 .setAmount(AccountDB.getBalance(request.getAccountNumber()))
-                .setCurrency("LKR")
+                .setCurrency("LKR").setPort(HostnamePrinter.print())
                 .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
