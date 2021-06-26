@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mafei.model";
+
+message DepositRequest {
+    int32 account_number = 1;
+    int32 amount = 2;
+}
+
+message DepositResponse {
+    int32 current_amount = 1;
+}
+
+service ClientSideStreamBankService {
+    rpc CashDeposit(stream DepositRequest) returns (DepositResponse);
+}
