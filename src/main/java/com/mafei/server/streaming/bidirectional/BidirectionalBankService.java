@@ -2,6 +2,7 @@ package com.mafei.server.streaming.bidirectional;
 
 import com.mafei.model.*;
 import com.mafei.server.AccountDB;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 /**
@@ -21,36 +22,38 @@ public class BidirectionalBankService extends BidirectionalBankServiceGrpc.Bidir
                 int amount = transferRequest.getAmount();
                 int fromAmountBalance = AccountDB.getBalance(fromAccount);
 
-                TransferStatus status = TransferStatus.TRANSFER_STATUS_FAILED;
+                TransferStatus status;
                 if (fromAmountBalance >= amount && fromAccount != toAccount) {
                     AccountDB.deductAmount(fromAccount, amount);
                     AccountDB.addAmount(toAccount, amount);
                     status = TransferStatus.TRANSFER_STATUS_SUCCESS;
+                    Account _fromAccount = Account.newBuilder()
+                            .setAccountNumber(fromAccount)
+                            .setAmount(AccountDB.getBalance(fromAccount))
+                            .build();
+
+                    Account _toAccount = Account.newBuilder()
+                            .setAccountNumber(toAccount)
+                            .setAmount(AccountDB.getBalance(toAccount))
+                            .build();
+
+
+                    TransferResponse response = TransferResponse.newBuilder()
+                            .setTransferStatus(status)
+                            .addAccounts(_fromAccount)
+                            .addAccounts(_toAccount)
+                            .build();
+
+                    responseObserver.onNext(response);
+                } else {
+                    responseObserver.onError(Status.OK.asException());
                 }
-                Account _fromAccount = Account.newBuilder()
-                        .setAccountNumber(fromAccount)
-                        .setAmount(AccountDB.getBalance(fromAccount))
-                        .build();
-
-                Account _toAccount = Account.newBuilder()
-                        .setAccountNumber(toAccount)
-                        .setAmount(AccountDB.getBalance(toAccount))
-                        .build();
-
-
-                TransferResponse response = TransferResponse.newBuilder()
-                        .setTransferStatus(status)
-                        .addAccounts(_fromAccount)
-                        .addAccounts(_toAccount)
-                        .build();
-
-                responseObserver.onNext(response);
 
             }
 
             @Override
             public void onError(Throwable throwable) {
-
+                System.out.println("throwable = " + throwable.getMessage());
             }
 
             @Override
