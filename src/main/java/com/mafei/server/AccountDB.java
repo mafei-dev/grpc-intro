@@ -38,4 +38,8 @@ public class AccountDB {
     public static Integer getBalance(int accountNumber) {
         return DATABASE.get(accountNumber);
     }
+
+    public static void printDetails() {
+        System.out.println("DATABASE = " + DATABASE);
+    }
 }
