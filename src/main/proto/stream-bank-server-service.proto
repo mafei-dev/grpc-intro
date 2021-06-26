@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mafei.model";
+
+message BalanceDeductRequest {
+    int32 account_number = 1;
+    int32 deduct_amount = 2;
+}
+
+message BalanceDeductResponse {
+    int32 account_number = 1;
+    int32 current_amount = 2;
+}
+
+service StreamBankServerService {
+    //server side stream service
+    rpc DeductBalance(BalanceDeductRequest)  returns (stream BalanceDeductResponse);
+}

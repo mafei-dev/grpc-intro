@@ -1,5 +1,6 @@
 package com.mafei.server;
 
+import com.mafei.server.streaming.server.StreamBankServerService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
@@ -13,7 +14,7 @@ public class GRPCServer {
     public static int port = 6565;
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Server server = ServerBuilder.forPort(port).addService(new BankService()).build();
+        Server server = ServerBuilder.forPort(port).addService(new StreamBankServerService()).build();
         System.out.println("server starting on port : " + port);
         server.start();
         server.awaitTermination();
