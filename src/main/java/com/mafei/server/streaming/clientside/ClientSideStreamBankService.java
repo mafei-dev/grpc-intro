@@ -19,6 +19,7 @@ public class ClientSideStreamBankService extends ClientSideStreamBankServiceGrpc
 
             @Override
             public void onNext(DepositRequest depositRequest) {
+                System.out.println("depositRequest = " + depositRequest);
                 Integer balance = AccountDB.addAmount(depositRequest.getAccountNumber(), depositRequest.getAmount());
                 accountBalance = balance;
 
